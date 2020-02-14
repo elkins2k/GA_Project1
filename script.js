@@ -64,7 +64,7 @@ function updateGameBoard (){
         const thisStack = document.querySelector(`#stack${number}`)
         for ( i=stackNumber.length; i>0; i-- ) {
             const createDivStack = document.createElement (`div`)    
-            createDivStack.setClass = `disk`
+            createDivStack.className = `disk`
             createDivStack.setAttribute( `id` , `disk${stackNumber[i-1]}` )
             thisStack.appendChild (createDivStack)
             createDivStack.innerHTML = ( `${stackNumber[i-1]} disks` )
