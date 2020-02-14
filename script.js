@@ -10,6 +10,7 @@ initializeGame()
 function initializeGame () {
     clearTheHeader()
     createGameSizeInputForm()
+}
 
 function clearTheHeader () {
     while (headerElements[0].lastElementChild)
@@ -55,6 +56,18 @@ function  setGameSize () {
 }
 
 function updateGameBoard (){
+        // [{"stack1":stack1, "stack2":stack2, "stack3":stack3}].forEach (stack => {
+        //     const stackIteration = Object.keys(stack)[0]
+        //     const thisStack = document.querySelector(`#${stackIteration}`)
+        //     console.log (stack.length)
+        //     for ( i=0; i<stack1.length; i++ ) {
+        //         const createDivStack = document.createElement (`div`)    
+        //         createDivStack.setClass = `disk`
+        //         createDivStack.setAttribute( `id` , `disk${stack1[i]}` )
+        //         thisStack.appendChild (createDivStack)
+        //         createDivStack.innerHTML = ( `${i+1} disks` )
+        //     }
+        // })
         const thisStack = document.querySelector(`#stack1`)
         for ( i=0; i<stack1.length; i++ ) {
             const createDivStack = document.createElement (`div`)    
@@ -63,8 +76,8 @@ function updateGameBoard (){
             thisStack.appendChild (createDivStack)
             createDivStack.innerHTML = ( `${i+1} disks` )
         }
-    }
-    //clearTheHeader()
+
+    clearTheHeader()
     return checkForTheWin()
 }
 
