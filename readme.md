@@ -11,7 +11,7 @@
         - user choses a source stack to move top disk from, then selects the target stack to move to
         - allow move if disk being moved is smaller than top disk on the target stack
     - game ends when all disks are stacked on the right stack
- - - - - - - - - - - - - SILVER
+- - - - - - - - - - - - SILVER
  - count number of moves
  - compare count to optimal solution (2^# - 1)
     - 3 disks = 7 moves
