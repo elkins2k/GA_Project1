@@ -23,7 +23,6 @@ function createGameSizeInputForm () {
     createForm.className = `inputForm`
     createForm.innerHTML = (`Please select a game to play: `)
     headerElements[0].appendChild(createForm)
-    //ceate radio button inputs
     for ( i=3; i<=7; i++ ) {
         const createInput = document.createElement (`input`)    
         createInput.setAttribute( `type` , `radio` )
@@ -56,35 +55,29 @@ function  setGameSize () {
 }
 
 function updateGameBoard (){
-        // [{"stack1":stack1, "stack2":stack2, "stack3":stack3}].forEach (stack => {
-        //     const stackIteration = Object.keys(stack)[0]
-        //     const thisStack = document.querySelector(`#${stackIteration}`)
-        //     console.log (stack.length)
-        //     for ( i=0; i<stack1.length; i++ ) {
-        //         const createDivStack = document.createElement (`div`)    
-        //         createDivStack.setClass = `disk`
-        //         createDivStack.setAttribute( `id` , `disk${stack1[i]}` )
-        //         thisStack.appendChild (createDivStack)
-        //         createDivStack.innerHTML = ( `${i+1} disks` )
-        //     }
-        // })
-        const thisStack = document.querySelector(`#stack1`)
-        for ( i=0; i<stack1.length; i++ ) {
+    for ( number=1; number<=3; number++) {
+        number === 1
+            ? stackNumber = stack1
+            : number === 2
+                ? stackNumber = stack2
+                : stackNumber = stack3
+        const thisStack = document.querySelector(`#stack${number}`)
+        for ( i=stackNumber.length; i>0; i-- ) {
             const createDivStack = document.createElement (`div`)    
             createDivStack.setClass = `disk`
-            createDivStack.setAttribute( `id` , `disk${stack1[i]}` )
+            createDivStack.setAttribute( `id` , `disk${stackNumber[i-1]}` )
             thisStack.appendChild (createDivStack)
-            createDivStack.innerHTML = ( `${i+1} disks` )
+            createDivStack.innerHTML = ( `${stackNumber[i-1]} disks` )
         }
-
+    }
     clearTheHeader()
     return checkForTheWin()
 }
 
 function checkForTheWin(){
-    return stack1 === forTheWin
+    return stack3 === forTheWin
         ? console.log(`WOOHOO`)
-        : console.log(`keep trying`)
+        : console.log(`not yet`)
 }
 
 /*

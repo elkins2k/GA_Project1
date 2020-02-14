@@ -20,6 +20,7 @@ header {
 .stack {
     margin: 10px;
     border: solid black;
+    vertical-align: bottom;
 }
 
 #stack1 {
