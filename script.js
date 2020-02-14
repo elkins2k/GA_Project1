@@ -1,65 +1,79 @@
-/*
-technical enablement of game logic
-- each stack is an array
-- array [0] is the bottom of the stack
-- array [n] must be bigger than array [n+1]
-- use array.push/pop to track stacks
-- to start, array1 = [ 7, 6, 5, 4, 3, 2, 1]
-- to win, array3 = [ 7, 6, 5, 4, 3, 2, 1]
-*/
+
+const headerElements = document.querySelectorAll (`header`)
 let stack1 = []
 let stack2 = []
 let stack3 = []
-const forTheWin = [ 7, 6, 5, 4, 3, 2, 1 ]
-/*
-create playing area with buttons
-*/
+let forTheWin = []
 
-/*
-f = initialize game
-allow user to enter number of disks for game (3-7)
-set each stack array and populate first array with number of disks
-create gameboard with number of disks chosen by user
-*/
+initializeGame()
+
 function initializeGame () {
-    const headerElements = document.querySelectorAll (`header`)
-    //clear out the header 
+    clearTheHeader()
+    createGameSizeInputForm()
+
+function clearTheHeader () {
     while (headerElements[0].lastElementChild)
         headerElements[0].removeChild ( headerElements[0].lastElementChild )
-    //create new header elements to get user input
-    //create form element
-    const headerForm = document.createElement ("form")
-    headerForm.className = "headerForm"
-    headerForm.innerHTML = (`Please select a game to play: `)
-    headerElements[0].appendChild(headerForm)
-    //ceate radio button inputs
-    for (i=3; i<=7; i++) {
-        let headerInput = document.createElement ("input")
-        headerInput.setAttribute(
-            {"type":"radio"})
-        headerInput.setAttribute("id" , `${i}`)
-        headerInput.setAttribute("name" , "diskCount")
-        headerInput.setAttribute("value" , `${i}`)
-        console.log(headerInput)
-        headerForm.appendChild (headerInput)
-        let headerLabel = document.createElement (   
-            "label", {"for" : `${i}`}
-        )
-        console.log(headerLabel)
-        headerForm.appendChild (headerLabel)
-        headerLabel.innerHTML = (`${i} disks`)
-    }
-    
-
-    
-    
-
-    const message = `<p> How many disks would you like to try? (enter a # between 3 and 7) </p>`
-    headerDiv.outerText (message)
-    stack1 = [ 7, 6, 5, 4, 3, 2, 1 ]
-    stack2 = [ ]
-    stack3 = [ ]
+    return headerElements
 }
+
+function createGameSizeInputForm () {
+    const createForm = document.createElement (`form`)
+    createForm.className = `inputForm`
+    createForm.innerHTML = (`Please select a game to play: `)
+    headerElements[0].appendChild(createForm)
+    //ceate radio button inputs
+    for ( i=3; i<=7; i++ ) {
+        const createInput = document.createElement (`input`)    
+        createInput.setAttribute( `type` , `radio` )
+        createInput.setAttribute( `id` , `${i}` )
+        createInput.setAttribute( `name` , `gameInput` )
+        createInput.setAttribute( `value` , `${i}` )
+        createForm.appendChild (createInput)
+        let headerLabel = document.createElement (`label`)
+        headerLabel.setAttribute ( `for`, `${i}` )
+        createForm.appendChild (headerLabel)
+        headerLabel.innerHTML = ( `${i} disks` )
+    }
+    return setGameSize ()
+}
+
+function  setGameSize () {
+    const headerInput = document.querySelectorAll(`input`)
+        headerInput.forEach(radioInput => {
+            radioInput.addEventListener('click', (event) => {
+                stack1 = []
+                stack2 = []
+                stack3 = []
+                for ( i=parseInt(radioInput.value) ; i>0; i-- ) {
+                    stack1.push(i)
+                }
+                forTheWin=stack1
+                return updateGameBoard()
+            })        
+        })
+}
+
+function updateGameBoard (){
+        const thisStack = document.querySelector(`#stack1`)
+        for ( i=0; i<stack1.length; i++ ) {
+            const createDivStack = document.createElement (`div`)    
+            createDivStack.setClass = `disk`
+            createDivStack.setAttribute( `id` , `disk${stack1[i]}` )
+            thisStack.appendChild (createDivStack)
+            createDivStack.innerHTML = ( `${i+1} disks` )
+        }
+    }
+    //clearTheHeader()
+    return checkForTheWin()
+}
+
+function checkForTheWin(){
+    return stack1 === forTheWin
+        ? console.log(`WOOHOO`)
+        : console.log(`keep trying`)
+}
+
 /*
 f = on click, set sourceArray
 on next click, set targetArray
@@ -71,12 +85,3 @@ if sourceArray[sourceArray.length-1] < targetArray[targetArray.length-1]
 reset sourceArray and targetArray
 return
 */
-
-/*
-f = check for win
-if array3 != [ 7, 6, 5, 4, 3, 2, 1]
-    then return
-    else WIN!!,
-    initialize game
-*/
-initializeGame();

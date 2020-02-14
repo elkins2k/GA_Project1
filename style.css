@@ -13,15 +13,25 @@ header {
     width: 80vw;
     height: 75vh;
     margin: 0 auto;
-    border: solid black;
     display: grid;
-    grid-template: 1 / 3;
+    grid-template: 1fr / 1fr 1fr 1fr;
 }
-.peg {
-    width: 1fr;
-    height: auto;
-    margin: 0 auto;
+
+.stack {
+    margin: 10px;
     border: solid black;
+}
+
+#stack1 {
+    grid: 1;
+}
+
+#stack2 {
+    grid: 2;
+}
+
+#stack3 {
+    grid: 3;
 }
 .disk {
     height: 5vh;
