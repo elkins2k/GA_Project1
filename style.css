@@ -24,20 +24,22 @@ header {
 }
 
 #stack1 {
-    grid: 1;
+    grid-column: 1;
+    vertical-align: bottom;
 }
 
 #stack2 {
-    grid: 2;
+    grid-column: 2;
 }
 
 #stack3 {
-    grid: 3;
+    grid-column: 3;
 }
 .disk {
     height: 5vh;
     margin: 0 auto;
     border: solid black;
+    vertical-align: bottom;
 }
 footer {
     width: auto;

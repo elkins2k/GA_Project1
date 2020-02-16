@@ -6,6 +6,7 @@ let stack3 = []
 let forTheWin = []
 
 initializeGame()
+determineMove()
 
 function initializeGame () {
     clearTheHeader()
@@ -47,8 +48,8 @@ function  setGameSize () {
                 stack3 = []
                 for ( i=parseInt(radioInput.value) ; i>0; i-- ) {
                     stack1.push(i)
+                    forTheWin.push(i)
                 }
-                forTheWin=stack1
                 return updateGameBoard()
             })        
         })
@@ -61,13 +62,16 @@ function updateGameBoard (){
             : number === 2
                 ? stackNumber = stack2
                 : stackNumber = stack3
-        const thisStack = document.querySelector(`#stack${number}`)
+        let thisStack = document.querySelectorAll(`#stack${number}`)
+        while(thisStack[0].lastElementChild)
+            thisStack[0].removeChild(thisStack[0].lastElementChild)
+        thisStack = document.querySelector(`#stack${number}`)
         for ( i=stackNumber.length; i>0; i-- ) {
             const createDivStack = document.createElement (`div`)    
             createDivStack.className = `disk`
             createDivStack.setAttribute( `id` , `disk${stackNumber[i-1]}` )
             thisStack.appendChild (createDivStack)
-            createDivStack.innerHTML = ( `${stackNumber[i-1]} disks` )
+            createDivStack.innerHTML = ( `disk ${stackNumber[i-1]}` )
         }
     }
     clearTheHeader()
@@ -91,3 +95,49 @@ if sourceArray[sourceArray.length-1] < targetArray[targetArray.length-1]
 reset sourceArray and targetArray
 return
 */
+diskInPlay = ``
+function determineMove () {
+    const divStack1 = document.querySelector(`div #stack1`)
+    divStack1.addEventListener(`click`, () => {
+        console.log (`div stack1 clicked`)
+        if (diskInPlay === ``) {
+            diskInPlay = stack1[stack1.length-1]
+            stack1.pop()
+        } else if (diskInPlay < stack1[stack1.length-1]|| stack1.length===0) {
+            stack1.push(diskInPlay)
+            diskInPlay=``
+            updateGameBoard()
+        } else {
+            console.log(`illegal move`)
+        }
+    })
+    const divStack2 = document.querySelector(`div #stack2`)
+    divStack2.addEventListener(`click`, () => {
+        console.log (`div stack2 clicked`)
+        if (diskInPlay === ``) {
+            diskInPlay = stack2[stack2.length-1]
+            stack2.pop()
+        } else if (diskInPlay < stack2[stack2.length-1] || stack2.length===0) {
+            stack2.push(diskInPlay)
+            diskInPlay=``
+            updateGameBoard()
+        } else {
+            console.log(`illegal move`)
+        }
+    })
+
+    const divStack3 = document.querySelector(`div #stack3`)
+    divStack3.addEventListener(`click`, () => {
+        console.log (`div stack3 clicked`)
+        if (diskInPlay === ``) {
+            diskInPlay = stack3[stack3.length-1]
+            stack3.pop()
+        } else if (diskInPlay < stack3[stack3.length-1] || stack3.length===0) {
+            stack3.push(diskInPlay)
+            diskInPlay=``
+            updateGameBoard()
+        } else {
+            console.log(`illegal move`)
+        }
+    })
+}
