@@ -47,41 +47,46 @@ header {
     border-radius: 17.5%;
 }
 
-#disk1{
+#disk1 {
     width: 40%;
     background: red;
 }
 
-#disk2{
+#disk2 {
     width:50%;
     background: blue;
 }
 
-#disk3{
+#disk3 {
     width:60%;
     background: pink;
 }
 
-#disk4{
+#disk4 {
     width:70%;
     background: green;
 }
 
-#disk5{
+#disk5 {
     width:80%;
     background: orange;
 }
 
-#disk6{
+#disk6 {
     width:90%;
     background: purple;
 }
 
-#disk7{
+#disk7 {
     width:100%;
     background: yellow;
 }
 
+img {
+    height: 1fr;
+    width: 1fr;
+    margin: 0 auto;
+}
 footer {
     width: 100vw;
     height: 10vh;
