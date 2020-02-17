@@ -1,29 +1,32 @@
-
-const headerElements = document.querySelectorAll (`header`)
 let stack1 = []
 let stack2 = []
 let stack3 = []
 let forTheWin = []
 
-initializeGame()
-determineMove()
+newGame()
+move()
 
-function initializeGame () {
-    clearTheHeader()
-    createGameSizeInputForm()
+/*
+    function to clear out the children of an element so new information can be placed
+*/
+function clearTheElement (element) {
+    const elementWithChildren = document.querySelectorAll (element)
+    while (elementWithChildren[0].lastElementChild)
+        elementWithChildren[0].removeChild ( elementWithChildren[0].lastElementChild )
+        return elementWithChildren
 }
-
-function clearTheHeader () {
-    while (headerElements[0].lastElementChild)
-        headerElements[0].removeChild ( headerElements[0].lastElementChild )
-    return headerElements
-}
-
-function createGameSizeInputForm () {
+/*
+    function that initializes the game
+*/
+function newGame () {
+    // generate a form for player input in the header
+    clearTheElement (`header`)
     const createForm = document.createElement (`form`)
     createForm.className = `inputForm`
     createForm.innerHTML = (`Please select a game to play: `)
+    const headerElements = document.querySelectorAll (`header`)
     headerElements[0].appendChild(createForm)
+    // only allow player to choose 3 - 7 disks per game
     for ( i=3; i<=7; i++ ) {
         const createInput = document.createElement (`input`)    
         createInput.setAttribute( `type` , `radio` )
@@ -34,53 +37,58 @@ function createGameSizeInputForm () {
         let headerLabel = document.createElement (`label`)
         headerLabel.setAttribute ( `for`, `${i}` )
         createForm.appendChild (headerLabel)
-        headerLabel.innerHTML = ( `${i} disks` )
+        headerLabel.innerHTML = ( `${i} disks ` )
     }
-    return setGameSize ()
+    // initialize the stacks
+    stack1 = []
+    stack2 = []
+    stack3 = []
+    // initialize the first stack based on player input
+    document.querySelectorAll(`input`).forEach(radioInput => {
+        radioInput.addEventListener('click', () => {
+            for ( i=parseInt(radioInput.value); i>0; i-- ) {
+                stack1.push(i)
+                // setup what the winning stack should look like
+                forTheWin.push(i)
+            }
+        return updateGameBoard()
+        })        
+    })
 }
-
-function  setGameSize () {
-    const headerInput = document.querySelectorAll(`input`)
-        headerInput.forEach(radioInput => {
-            radioInput.addEventListener('click', (event) => {
-                stack1 = []
-                stack2 = []
-                stack3 = []
-                for ( i=parseInt(radioInput.value) ; i>0; i-- ) {
-                    stack1.push(i)
-                    forTheWin.push(i)
-                }
-                return updateGameBoard()
-            })        
-        })
-}
-
-function updateGameBoard (){
-    for ( number=1; number<=3; number++) {
-        number === 1
-            ? stackNumber = stack1
-            : number === 2
-                ? stackNumber = stack2
-                : stackNumber = stack3
-        let thisStack = document.querySelectorAll(`#stack${number}`)
-        while(thisStack[0].lastElementChild)
-            thisStack[0].removeChild(thisStack[0].lastElementChild)
-        thisStack = document.querySelector(`#stack${number}`)
+/*
+    function to update the game board to visually reflect the game pieces
+*/
+function updateGameBoard () {
+    // clear the header to accept new instructions
+    clearTheElement(`header`)
+    // iterate through each stack
+    for ( currentStack=1; currentStack<=3; currentStack++) {
+        currentStack === 1
+            ? stackNumber = stack1 : currentStack === 2
+                ? stackNumber = stack2 : stackNumber = stack3
+        // clear each stack to prepare for upate
+        clearTheElement(`#stack${currentStack}`)
+        eachStack = document.querySelector(`#stack${currentStack}`)
+        // create the disks for each stack based on their contents
         for ( i=stackNumber.length; i>0; i-- ) {
             const createDivStack = document.createElement (`div`)    
             createDivStack.className = `disk`
             createDivStack.setAttribute( `id` , `disk${stackNumber[i-1]}` )
-            thisStack.appendChild (createDivStack)
+            eachStack.appendChild (createDivStack)
             createDivStack.innerHTML = ( `disk ${stackNumber[i-1]}` )
         }
     }
-    clearTheHeader()
+    // after the board is updated, check if player won
     return checkForTheWin()
 }
-
+/*
+    function to check if the player won yet
+*/
 function checkForTheWin(){
-    return stack3 === forTheWin
-        ? console.log(`WOOHOO`)
+    // if stack3 matches the winning stack, player wins!
+    //    return stack3 === forTheWin
+    return stack3.length === forTheWin.length
+        ? alert(`WOOHOO`)
         : console.log(`not yet`)
 }
 
@@ -95,49 +103,111 @@ if sourceArray[sourceArray.length-1] < targetArray[targetArray.length-1]
 reset sourceArray and targetArray
 return
 */
-diskInPlay = ``
-function determineMove () {
+
+function move () {
+    diskInPlay = ``
     const divStack1 = document.querySelector(`div #stack1`)
     divStack1.addEventListener(`click`, () => {
-        console.log (`div stack1 clicked`)
-        if (diskInPlay === ``) {
+        // don't allow an empty stack be selected if no disk has been choosen yet
+        if (stack1.length === 0 && diskInPlay === ``) {            
+            console.log ('nothing selected yet')
+        // otherwise, is no disk has been choosen yet, grab the last disk off the stack
+        } else if ( diskInPlay === `` ) {
             diskInPlay = stack1[stack1.length-1]
             stack1.pop()
-        } else if (diskInPlay < stack1[stack1.length-1]|| stack1.length===0) {
+            divStack1.setAttribute(`style`, `border: solid red`)
+        // otherwise if disk choosen is smaller than the last disk on the target stack
+        // or no disks yet exist on the stack,
+        // place the disk on the stack
+        } else if (diskInPlay < stack1[stack1.length-1] || stack1.length===0) {
             stack1.push(diskInPlay)
             diskInPlay=``
+            divStack1.setAttribute(`style`, `border:revert`)
+            divStack2.setAttribute(`style`, `border:revert`)
+            divStack3.setAttribute(`style`, `border:revert`)
+            //update the game board
             updateGameBoard()
+        // otherwise don't allow move
         } else {
-            console.log(`illegal move`)
+            alert (`illegal move`)
         }
     })
-    const divStack2 = document.querySelector(`div #stack2`)
-    divStack2.addEventListener(`click`, () => {
-        console.log (`div stack2 clicked`)
-        if (diskInPlay === ``) {
-            diskInPlay = stack2[stack2.length-1]
-            stack2.pop()
-        } else if (diskInPlay < stack2[stack2.length-1] || stack2.length===0) {
-            stack2.push(diskInPlay)
-            diskInPlay=``
-            updateGameBoard()
-        } else {
-            console.log(`illegal move`)
-        }
-    })
-
-    const divStack3 = document.querySelector(`div #stack3`)
-    divStack3.addEventListener(`click`, () => {
-        console.log (`div stack3 clicked`)
-        if (diskInPlay === ``) {
-            diskInPlay = stack3[stack3.length-1]
-            stack3.pop()
-        } else if (diskInPlay < stack3[stack3.length-1] || stack3.length===0) {
-            stack3.push(diskInPlay)
-            diskInPlay=``
-            updateGameBoard()
-        } else {
-            console.log(`illegal move`)
-        }
-    })
+    // const divStack1 = document.querySelector(`div #stack1`)
+    // divStack1.addEventListener(`click`, () => {
+    //     // don't allow an empty stack be selected if no disk has been choosen yet
+    //     if (stack1.length === 0 && diskInPlay === ``) {            
+    //         console.log ('nothing selected yet')
+    //     // otherwise, is no disk has been choosen yet, grab the last disk off the stack
+    //     } else if ( diskInPlay === `` ) {
+    //         diskInPlay = stack1[stack1.length-1]
+    //         stack1.pop()
+    //         divStack1.setAttribute(`style`, `border: solid red`)
+    //     // otherwise if disk choosen is smaller than the last disk on the target stack
+    //     // or no disks yet exist on the stack,
+    //     // place the disk on the stack
+    //     } else if (diskInPlay < stack1[stack1.length-1] || stack1.length===0) {
+    //         stack1.push(diskInPlay)
+    //         diskInPlay=``
+    //         divStack1.setAttribute(`style`, `border:revert`)
+    //         divStack2.setAttribute(`style`, `border:revert`)
+    //         divStack3.setAttribute(`style`, `border:revert`)
+    //         //update the game board
+    //         updateGameBoard()
+    //     // otherwise don't allow move
+    //     } else {
+    //         alert (`illegal move`)
+    //     }
+    // })
+    // const divStack2 = document.querySelector(`div #stack2`)
+    // divStack2.addEventListener(`click`, () => {
+    //     // don't allow an empty stack be selected if no disk has been choosen yet
+    //     if (stack2.length === 0 && diskInPlay === ``) {            
+    //         console.log ('nothing selected yet')
+    //     // otherwise, is no disk has been choosen yet, grab the last disk off the stack
+    //     } else if ( diskInPlay === `` ) {
+    //         diskInPlay = stack2[stack2.length-1]
+    //         stack2.pop()
+    //         divStack2.setAttribute(`style`, `border: solid red`)
+    //     // otherwise if disk choosen is smaller than the last disk on the target stack
+    //     // or no disks yet exist on the stack,
+    //     // place the disk on the stack
+    //     } else if (diskInPlay < stack2[stack2.length-1] || stack2.length===0) {
+    //         stack2.push(diskInPlay)
+    //         diskInPlay=``
+    //         divStack1.setAttribute(`style`, `border:revert`)
+    //         divStack2.setAttribute(`style`, `border:revert`)
+    //         divStack3.setAttribute(`style`, `border:revert`)
+    //         //update the game board
+    //         updateGameBoard()
+    //     // otherwise don't allow move
+    //     } else {
+    //         alert (`illegal move`)
+    //     }
+    // })
+    // const divStack3 = document.querySelector(`div #stack3`)
+    // divStack3.addEventListener(`click`, () => {
+    //     // don't allow an empty stack be selected if no disk has been choosen yet
+    //     if (stack3.length === 0 && diskInPlay === ``) {            
+    //         console.log ('nothing selected yet')
+    //     // otherwise, is no disk has been choosen yet, grab the last disk off the stack
+    //     } else if ( diskInPlay === `` ) {
+    //         diskInPlay = stack3[stack3.length-1]
+    //         stack3.pop()
+    //         divStack3.setAttribute(`style`, `border: solid red`)
+    //     // otherwise if disk choosen is smaller than the last disk on the target stack
+    //     // or no disks yet exist on the stack,
+    //     // place the disk on the stack
+    //     } else if (diskInPlay < stack3[stack3.length-1] || stack3.length===0) {
+    //         stack3.push(diskInPlay)
+    //         diskInPlay=``
+    //         divStack1.setAttribute(`style`, `border:revert`)
+    //         divStack2.setAttribute(`style`, `border:revert`)
+    //         divStack3.setAttribute(`style`, `border:revert`)
+    //         //update the game board
+    //         updateGameBoard()
+    //     // otherwise don't allow move
+    //     } else {
+    //         alert (`illegal move`)
+    //     }
+    // })
 }

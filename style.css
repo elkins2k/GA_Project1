@@ -1,12 +1,17 @@
 body {
     text-align: center;
+    align-items: center;
+    background: black;
+    color: white;
 }
 
 header {
-    width: auto;
+    width: 100vw;
     height: 10vh;
-    align-content: center;
-    border: solid black;
+    border: solid darkgrey;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: larger;
 }
 
 .playArea {
@@ -19,13 +24,12 @@ header {
 
 .stack {
     margin: 10px;
-    border: solid black;
-    vertical-align: bottom;
+    border: thin solid lightgrey;
+    position: relative;
 }
 
 #stack1 {
     grid-column: 1;
-    vertical-align: bottom;
 }
 
 #stack2 {
@@ -35,15 +39,54 @@ header {
 #stack3 {
     grid-column: 3;
 }
+
 .disk {
-    height: 5vh;
+    height: 10%;
     margin: 0 auto;
-    border: solid black;
-    vertical-align: bottom;
+    border: thin solid darkgrey;
+    border-radius: 17.5%;
 }
+
+#disk1{
+    width: 40%;
+    background: red;
+}
+
+#disk2{
+    width:50%;
+    background: blue;
+}
+
+#disk3{
+    width:60%;
+    background: pink;
+}
+
+#disk4{
+    width:70%;
+    background: green;
+}
+
+#disk5{
+    width:80%;
+    background: orange;
+}
+
+#disk6{
+    width:90%;
+    background: purple;
+}
+
+#disk7{
+    width:100%;
+    background: yellow;
+}
+
 footer {
-    width: auto;
+    width: 100vw;
     height: 10vh;
     align-content: center;
-    border: solid black;
+    border: solid darkgrey;
+    display: table-cell;
+    vertical-align: middle;
 }
