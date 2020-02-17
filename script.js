@@ -3,6 +3,7 @@ let stack2 = []
 let stack3 = []
 let forTheWin = []
 
+
 newGame()
 move()
 
@@ -20,6 +21,7 @@ function clearTheElement (element) {
 */
 function newGame () {
     // generate a form for player input in the header
+    document.querySelector(`header`).innerText = ``
     clearTheElement (`header`)
     const createForm = document.createElement (`form`)
     createForm.className = `inputForm`
@@ -39,10 +41,23 @@ function newGame () {
         createForm.appendChild (headerLabel)
         headerLabel.innerHTML = ( `${i} disks ` )
     }
-    // initialize the stacks
+    // initialize the stacks and create the play area
+    clearTheElement(`.playArea`)
     stack1 = []
+        const createStack1 = document.createElement(`div`)
+        createStack1.className = `stack`
+        createStack1.setAttribute(`id`,`stack1`)
+        document.querySelector(`.playArea`).appendChild(createStack1)
     stack2 = []
+        const createStack2 = document.createElement(`div`)
+        createStack2.className = `stack`
+        createStack2.setAttribute(`id`,`stack2`)
+        document.querySelector(`.playArea`).appendChild(createStack2)
     stack3 = []
+        const createStack3 = document.createElement(`div`)
+        createStack3.className = `stack`
+        createStack3.setAttribute(`id`,`stack3`)
+        document.querySelector(`.playArea`).appendChild(createStack3)
     // initialize the first stack based on player input
     document.querySelectorAll(`input`).forEach(radioInput => {
         radioInput.addEventListener('click', () => {
@@ -87,22 +102,23 @@ function updateGameBoard () {
 */
 function checkForTheWin(){
     // if stack3 matches the winning stack, player wins!
-    //    return stack3 === forTheWin <=why doesn't this work? ****************
+    //    if (stack3 === forTheWin) { <=why doesn't this work? ****************
     if (stack3.length === forTheWin.length) {
+        // go out to GIPHY and grab a "champion" GIF for the player
+        const giphyEndPoint = `https://api.giphy.com/v1/gifs/search`
+        const apiKey = `?api_key=C521h69tBB5OScRngdsjrWMAnzMfvHh6`
         axios ({
-            url: `https://api.giphy.com/v1/gifs/search?api_key=2041494ca782403cb6055682a7943c75&tag=&rating=G&q=winner`,
+            url: giphyEndPoint+apiKey+`&tag=&rating=G&q=champion`,
             method: `get`
         })
         .then (response => {
-            // IN THE .THEN METHOD, PARSE THE JSON RESPONSE OBJECT AND FIND 
-            // THE image_url key
             const winnerImg = response.data.data[Math.floor(Math.random()*25)].images.original.url
-            console.log (winnerImg)
-            //clearTheElement (`.playArea`)
             const createImg = document.createElement(`img`)
             createImg.setAttribute(`src`, winnerImg)
-            document.querySelector(`#stack2`).appendChild(createImg)
-            document.querySelector(`header`).innerText = 'You are a winner! Select the RESET button below to start a new game.'
+            clearTheElement (`.playArea`)
+            document.querySelector(`.playArea`).appendChild(createImg)
+            // change the header information to let player know what to do next
+            document.querySelector(`header`).innerText = 'You won! Select the RESET button to start a new game.'
         })
         .catch(error => console.log(error)
         )
@@ -144,13 +160,13 @@ function move () {
     divStack1.addEventListener(`click`, () => {
         // don't allow an empty stack be selected if no disk has been choosen yet
         if (stack1.length === 0 && diskInPlay === ``) {            
-            console.log ('nothing selected yet')
+            document.querySelector(`header`).innerText = `You cannot select an empty stack if a disk hasn't been choosen yet`
         // otherwise, is no disk has been choosen yet, grab the last disk off the stack
         } else if ( diskInPlay === `` ) {
             diskInPlay = stack1[stack1.length-1]
             stack1.pop()
             divStack1.setAttribute(`style`, `border: solid red`)
-            document.querySelector(`header`).innerText = 'Select a target stack to put the disk'
+            document.querySelector(`header`).innerText = `Select a target stack to put the disk`
         // otherwise if disk choosen is smaller than the last disk on the target stack
         // or no disks yet exist on the stack,
         // place the disk on the stack
@@ -171,7 +187,7 @@ function move () {
     divStack2.addEventListener(`click`, () => {
         // don't allow an empty stack be selected if no disk has been choosen yet
         if (stack2.length === 0 && diskInPlay === ``) {            
-            console.log ('nothing selected yet')
+            document.querySelector(`header`).innerText = `You cannot select an empty stack if a disk hasn't been choosen yet`
         // otherwise, is no disk has been choosen yet, grab the last disk off the stack
         } else if ( diskInPlay === `` ) {
             diskInPlay = stack2[stack2.length-1]
@@ -197,7 +213,7 @@ function move () {
     divStack3.addEventListener(`click`, () => {
         // don't allow an empty stack be selected if no disk has been choosen yet
         if (stack3.length === 0 && diskInPlay === ``) {            
-            console.log ('nothing selected yet')
+            document.querySelector(`header`).innerText = `You cannot select an empty stack if a disk hasn't been choosen yet`
         // otherwise, is no disk has been choosen yet, grab the last disk off the stack
         } else if ( diskInPlay === `` ) {
             diskInPlay = stack3[stack3.length-1]

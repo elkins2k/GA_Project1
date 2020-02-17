@@ -1,3 +1,9 @@
+This is a Tower of Hanoi game. Objective is to move all disks on left most 
+stack, to the far right, moving one disk at a time without placing a larger
+disk on a smaller disk.
+
+Winning the game grabs a random "winner" GIF from GIPHY API
+
 - game board
     - header area = prompts that inform player what is expected from them next
     - game board = play area with 3 sections/pegs and discs
