@@ -56,32 +56,16 @@ function newGame () {
     }
     // initialize the stacks and create the play area
     clearTheElement(`.playArea`)
+    stack1 = []
+    stack2 = []
+    stack3 = []
     forTheWin=[]
-    /*  //  REFACTORING SPACE vvvv
-    for (const initStackNumber in stacks) {
-        stacks[initStackNumber] = []
-        const createStack = document.createElement(`div`)
+    for (i=1; i<=3; i++) {
+        createStack = document.createElement(`div`)
         createStack.className = `stack`
-        createStack.setAttribute(`id`,`stack${initStackNumber}`)
+        createStack.setAttribute(`id`,`stack${i}`)
         document.querySelector(`.playArea`).appendChild(createStack)
     }
-    */  //  THIS vvvv TO BE REFECTORED ^^^^
-    stack1 = []
-        let createStack = document.createElement(`div`)
-        createStack.className = `stack`
-        createStack.setAttribute(`id`,`stack1`)
-        document.querySelector(`.playArea`).appendChild(createStack)
-    stack2 = []
-        createStack = document.createElement(`div`)
-        createStack.className = `stack`
-        createStack.setAttribute(`id`,`stack2`)
-        document.querySelector(`.playArea`).appendChild(createStack)
-    stack3 = []
-        createStack = document.createElement(`div`)
-        createStack.className = `stack`
-        createStack.setAttribute(`id`,`stack3`)
-        document.querySelector(`.playArea`).appendChild(createStack)
-    
     // initialize the first stack based on player input
     document.querySelectorAll(`input`).forEach(radioInput => {
         radioInput.addEventListener('click', () => {
@@ -108,21 +92,6 @@ function updateGameBoard () {
     // clear the header to accept new instructions
     clearTheElement(`header`)
     // iterate through each stack
-    /*  //  REFACTORING SPACE vvvv
-    for (const updateStackNumber in stacks) {
-        // clear each stack to prepare for upate
-        clearTheElement(`#stack${updateStackNumber}`)
-        eachStack = document.querySelector(`#stack${updateStackNumber}`)
-        // create the disks for each stack based on their contents
-        for ( i=stacks[updateStackNumber].length; i>0; i-- ) {
-            const createDivStack = document.createElement (`div`)    
-            createDivStack.className = `disk`
-            createDivStack.setAttribute( `id` , `disk${stacks[updateStackNumber][i-1]}` )
-            eachStack.appendChild (createDivStack)
-            createDivStack.innerHTML = ( `disk ${stacks[updateStackNumber][i-1]}` )
-        }
-    }
-    */  //  THIS vvvv TO BE REFECTORED ^^^^
     for ( currentStack=1; currentStack<=3; currentStack++) {
         currentStack === 1
             ? stackNumber = stack1 : currentStack === 2
@@ -136,10 +105,9 @@ function updateGameBoard () {
             createDivStack.className = `disk`
             createDivStack.setAttribute( `id` , `disk${stackNumber[i-1]}` )
             eachStack.appendChild (createDivStack)
-            createDivStack.innerHTML = ( `disk ${stackNumber[i-1]}` )
+            createDivStack.innerHTML = ( `${stackNumber[i-1]}` )
         }
     }
-    
     document.querySelector(`header`).innerText = 'Select the stack from which you want to move the top disk'
     // after the board is updated, check if player won
     return checkForTheWin()
@@ -223,7 +191,7 @@ function move () {
             diskInPlay = stack1[stack1.length-1]
             stack1.pop()
             divStack1.setAttribute(`style`, `border: solid red`)
-            document.querySelector(`header`).innerText = `Select a target stack to put the disk`
+            document.querySelector(`header`).innerText = `Select a target stack to put the top disk`
         // otherwise if disk choosen is smaller than the last disk on the target stack
         // or no disks yet exist on the stack,
         // place the disk on the stack
@@ -253,6 +221,7 @@ function move () {
             diskInPlay = stack2[stack2.length-1]
             stack2.pop()
             divStack2.setAttribute(`style`, `border: solid red`)
+            document.querySelector(`header`).innerText = `Select a target stack to put the top disk`
         // otherwise if disk choosen is smaller than the last disk on the target stack
         // or no disks yet exist on the stack,
         // place the disk on the stack
@@ -282,6 +251,7 @@ function move () {
             diskInPlay = stack3[stack3.length-1]
             stack3.pop()
             divStack3.setAttribute(`style`, `border: solid red`)
+            document.querySelector(`header`).innerText = `Select a target stack to put the top disk`
         // otherwise if disk choosen is smaller than the last disk on the target stack
         // or no disks yet exist on the stack,
         // place the disk on the stack
@@ -301,5 +271,5 @@ function move () {
             document.querySelector(`header`).innerText = 'You cannot choose a stack that has a smaller disk on top. '
         }
     })
-    
+    //*/    //    END OF SECTION TO BE REFECTORED ^^^^   
 }

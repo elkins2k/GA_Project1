@@ -47,6 +47,9 @@ header {
     border: thin solid black;
     border-radius: 17.5%;
     margin-bottom: 5px;
+    color: black;
+    font-size: xx-large;
+    font-weight: bold;
 }
 
 #disk1 {
@@ -103,6 +106,8 @@ footer {
     grid-column: 2;
     border-radius: 10%;
     background-color: darkgrey;
+    color: black;
+    font-weight: bold;
 }
 
 .bestMoves {
