@@ -5,6 +5,7 @@ let forTheWin = []
 let thisMoves = 0
 let bestMoves = 0
 let previousGame = 0
+const stacks = {1:stack1, 2:stack2, 3:stack3}
 
 startNewGame()
 const resetButton = document.querySelector(`#resetButton`)
@@ -55,22 +56,32 @@ function newGame () {
     }
     // initialize the stacks and create the play area
     clearTheElement(`.playArea`)
-    stack1 = []
-        const createStack1 = document.createElement(`div`)
-        createStack1.className = `stack`
-        createStack1.setAttribute(`id`,`stack1`)
-        document.querySelector(`.playArea`).appendChild(createStack1)
-    stack2 = []
-        const createStack2 = document.createElement(`div`)
-        createStack2.className = `stack`
-        createStack2.setAttribute(`id`,`stack2`)
-        document.querySelector(`.playArea`).appendChild(createStack2)
-    stack3 = []
-        const createStack3 = document.createElement(`div`)
-        createStack3.className = `stack`
-        createStack3.setAttribute(`id`,`stack3`)
-        document.querySelector(`.playArea`).appendChild(createStack3)
     forTheWin=[]
+    /*  //  REFACTORING SPACE vvvv
+    for (const initStackNumber in stacks) {
+        stacks[initStackNumber] = []
+        const createStack = document.createElement(`div`)
+        createStack.className = `stack`
+        createStack.setAttribute(`id`,`stack${initStackNumber}`)
+        document.querySelector(`.playArea`).appendChild(createStack)
+    }
+    */  //  THIS vvvv TO BE REFECTORED ^^^^
+    stack1 = []
+        let createStack = document.createElement(`div`)
+        createStack.className = `stack`
+        createStack.setAttribute(`id`,`stack1`)
+        document.querySelector(`.playArea`).appendChild(createStack)
+    stack2 = []
+        createStack = document.createElement(`div`)
+        createStack.className = `stack`
+        createStack.setAttribute(`id`,`stack2`)
+        document.querySelector(`.playArea`).appendChild(createStack)
+    stack3 = []
+        createStack = document.createElement(`div`)
+        createStack.className = `stack`
+        createStack.setAttribute(`id`,`stack3`)
+        document.querySelector(`.playArea`).appendChild(createStack)
+    
     // initialize the first stack based on player input
     document.querySelectorAll(`input`).forEach(radioInput => {
         radioInput.addEventListener('click', () => {
@@ -86,7 +97,7 @@ function newGame () {
                 forTheWin.push(i)
                 previousGame = radioInput.value
             }
-        return updateGameBoard()
+            return updateGameBoard()
         })        
     })
 }
@@ -97,6 +108,21 @@ function updateGameBoard () {
     // clear the header to accept new instructions
     clearTheElement(`header`)
     // iterate through each stack
+    /*  //  REFACTORING SPACE vvvv
+    for (const updateStackNumber in stacks) {
+        // clear each stack to prepare for upate
+        clearTheElement(`#stack${updateStackNumber}`)
+        eachStack = document.querySelector(`#stack${updateStackNumber}`)
+        // create the disks for each stack based on their contents
+        for ( i=stacks[updateStackNumber].length; i>0; i-- ) {
+            const createDivStack = document.createElement (`div`)    
+            createDivStack.className = `disk`
+            createDivStack.setAttribute( `id` , `disk${stacks[updateStackNumber][i-1]}` )
+            eachStack.appendChild (createDivStack)
+            createDivStack.innerHTML = ( `disk ${stacks[updateStackNumber][i-1]}` )
+        }
+    }
+    */  //  THIS vvvv TO BE REFECTORED ^^^^
     for ( currentStack=1; currentStack<=3; currentStack++) {
         currentStack === 1
             ? stackNumber = stack1 : currentStack === 2
@@ -113,6 +139,7 @@ function updateGameBoard () {
             createDivStack.innerHTML = ( `disk ${stackNumber[i-1]}` )
         }
     }
+    
     document.querySelector(`header`).innerText = 'Select the stack from which you want to move the top disk'
     // after the board is updated, check if player won
     return checkForTheWin()
@@ -153,32 +180,39 @@ function checkForTheWin(){
 */
 function move () {
     diskInPlay = ``
-    // const divStack1 = document.querySelector(`div #stack1`)
-    // divStack1.addEventListener(`click`, () => {
-    //     // don't allow an empty stack be selected if no disk has been choosen yet
-    //     if (stack1.length === 0 && diskInPlay === ``) {            
-    //         console.log ('nothing selected yet')
-    //     // otherwise, is no disk has been choosen yet, grab the last disk off the stack
-    //     } else if ( diskInPlay === `` ) {
-    //         diskInPlay = stack1[stack1.length-1]
-    //         stack1.pop()
-    //         divStack1.setAttribute(`style`, `border: solid red`)
-    //     // otherwise if disk choosen is smaller than the last disk on the target stack
-    //     // or no disks yet exist on the stack,
-    //     // place the disk on the stack
-    //     } else if (diskInPlay < stack1[stack1.length-1] || stack1.length===0) {
-    //         stack1.push(diskInPlay)
-    //         diskInPlay=``
-    //         divStack1.setAttribute(`style`, `border:revert`)
-    //         divStack2.setAttribute(`style`, `border:revert`)
-    //         divStack3.setAttribute(`style`, `border:revert`)
-    //         //update the game board
-    //         updateGameBoard()
-    //     // otherwise don't allow move
-    //     } else {
-    //         alert (`illegal move`)
-    //     }
-    // })
+    /*  //  REFACTORING SPACE vvvv
+    for (let stackNumber in stacks) {
+        let divStack = document.querySelector(`div #stack${stackNumber}`)
+        divStack.addEventListener(`click`, () => {
+            // don't allow an empty stack be selected if no disk has been choosen yet
+            console.log(stacks[stackNumber])
+            if (stacks[stackNumber].length === 0 && diskInPlay === ``) {            
+                document.querySelector(`header`).innerText = `You cannot select an empty stack if a disk hasn't been choosen yet`
+            // otherwise, is no disk has been choosen yet, grab the last disk off the stack
+            } else if ( diskInPlay === `` ) {
+                diskInPlay = stacks[stackNumber][stacks[stackNumber].length-1]
+                stacks[stackNumber].pop()
+                divStack.setAttribute(`style`, `border: solid red`)
+                document.querySelector(`header`).innerText = `Select a target stack to put the disk`
+            // otherwise if disk choosen is smaller than the last disk on the target stack
+            // or no disks yet exist on the stack,
+            // place the disk on the stack
+            } else if (diskInPlay < stacks[stackNumber][stacks[stackNumber].length-1] || stacks[stackNumber].length===0) {
+                stacks[stackNumber].push(diskInPlay)
+                diskInPlay=``
+                divStack.setAttribute(`style`, `border: thin solid lightgrey`)
+                // count the number of moves
+                thisMoves++
+                document.querySelector(`.thisMoves`).innerHTML = `Moves: <br>${thisMoves}`
+                //update the game board
+                updateGameBoard()
+            // otherwise don't allow move
+            } else {
+                document.querySelector(`header`).innerText = 'You cannot choose a stack that has a smaller disk on top. '
+            }
+        })
+    }
+    */  //  THIS vvvv TO BE REFECTORED ^^^^
     const divStack1 = document.querySelector(`div #stack1`)
     divStack1.addEventListener(`click`, () => {
         // don't allow an empty stack be selected if no disk has been choosen yet
@@ -267,6 +301,5 @@ function move () {
             document.querySelector(`header`).innerText = 'You cannot choose a stack that has a smaller disk on top. '
         }
     })
+    
 }
-
-
