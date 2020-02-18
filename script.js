@@ -5,14 +5,9 @@ let forTheWin = []
 let thisMoves = 0
 let bestMoves = 0
 let previousGame = 0
-const stacks = {1:stack1, 2:stack2, 3:stack3}
-
-startNewGame()
-const resetButton = document.querySelector(`#resetButton`)
-resetButton.addEventListener (`click`, ()=> {
-    startNewGame()
-})
-
+/*
+    function to initiate each new game
+*/
 function startNewGame () {
     newGame()
     move()
@@ -148,27 +143,30 @@ function checkForTheWin(){
 */
 function move () {
     diskInPlay = ``
-    /*  //  REFACTORING SPACE vvvv
+    const stacks = {1:stack1, 2:stack2, 3:stack3}
     for (let stackNumber in stacks) {
-        let divStack = document.querySelector(`div #stack${stackNumber}`)
+        const divStack = document.querySelector(`div #stack${stackNumber}`)
         divStack.addEventListener(`click`, () => {
             // don't allow an empty stack be selected if no disk has been choosen yet
-            console.log(stacks[stackNumber])
             if (stacks[stackNumber].length === 0 && diskInPlay === ``) {            
                 document.querySelector(`header`).innerText = `You cannot select an empty stack if a disk hasn't been choosen yet`
             // otherwise, is no disk has been choosen yet, grab the last disk off the stack
             } else if ( diskInPlay === `` ) {
                 diskInPlay = stacks[stackNumber][stacks[stackNumber].length-1]
                 stacks[stackNumber].pop()
+                // outline the stack selected in red
                 divStack.setAttribute(`style`, `border: solid red`)
-                document.querySelector(`header`).innerText = `Select a target stack to put the disk`
+                document.querySelector(`header`).innerText = `Select a target stack to put the top disk`
             // otherwise if disk choosen is smaller than the last disk on the target stack
             // or no disks yet exist on the stack,
             // place the disk on the stack
             } else if (diskInPlay < stacks[stackNumber][stacks[stackNumber].length-1] || stacks[stackNumber].length===0) {
                 stacks[stackNumber].push(diskInPlay)
                 diskInPlay=``
-                divStack.setAttribute(`style`, `border: thin solid lightgrey`)
+                // remove the red outline
+                document.querySelectorAll(`div .stack`).forEach (stack => {
+                    stack.setAttribute(`style`, `border: thin solid lightgrey`)
+                })
                 // count the number of moves
                 thisMoves++
                 document.querySelector(`.thisMoves`).innerHTML = `Moves: <br>${thisMoves}`
@@ -180,96 +178,12 @@ function move () {
             }
         })
     }
-    */  //  THIS vvvv TO BE REFECTORED ^^^^
-    const divStack1 = document.querySelector(`div #stack1`)
-    divStack1.addEventListener(`click`, () => {
-        // don't allow an empty stack be selected if no disk has been choosen yet
-        if (stack1.length === 0 && diskInPlay === ``) {            
-            document.querySelector(`header`).innerText = `You cannot select an empty stack if a disk hasn't been choosen yet`
-        // otherwise, is no disk has been choosen yet, grab the last disk off the stack
-        } else if ( diskInPlay === `` ) {
-            diskInPlay = stack1[stack1.length-1]
-            stack1.pop()
-            divStack1.setAttribute(`style`, `border: solid red`)
-            document.querySelector(`header`).innerText = `Select a target stack to put the top disk`
-        // otherwise if disk choosen is smaller than the last disk on the target stack
-        // or no disks yet exist on the stack,
-        // place the disk on the stack
-        } else if (diskInPlay < stack1[stack1.length-1] || stack1.length===0) {
-            stack1.push(diskInPlay)
-            diskInPlay=``
-            divStack1.setAttribute(`style`, `border: thin solid lightgrey`)
-            divStack2.setAttribute(`style`, `border: thin solid lightgrey`)
-            divStack3.setAttribute(`style`, `border: thin solid lightgrey`)
-            // count the number of moves
-            thisMoves++
-            document.querySelector(`.thisMoves`).innerHTML = `Moves: <br>${thisMoves}`
-            //update the game board
-            updateGameBoard()
-        // otherwise don't allow move
-        } else {
-            document.querySelector(`header`).innerText = 'You cannot choose a stack that has a smaller disk on top. '
-        }
-    })
-    const divStack2 = document.querySelector(`div #stack2`)
-    divStack2.addEventListener(`click`, () => {
-        // don't allow an empty stack be selected if no disk has been choosen yet
-        if (stack2.length === 0 && diskInPlay === ``) {            
-            document.querySelector(`header`).innerText = `You cannot select an empty stack if a disk hasn't been choosen yet`
-        // otherwise, is no disk has been choosen yet, grab the last disk off the stack
-        } else if ( diskInPlay === `` ) {
-            diskInPlay = stack2[stack2.length-1]
-            stack2.pop()
-            divStack2.setAttribute(`style`, `border: solid red`)
-            document.querySelector(`header`).innerText = `Select a target stack to put the top disk`
-        // otherwise if disk choosen is smaller than the last disk on the target stack
-        // or no disks yet exist on the stack,
-        // place the disk on the stack
-        } else if (diskInPlay < stack2[stack2.length-1] || stack2.length===0) {
-            stack2.push(diskInPlay)
-            diskInPlay=``
-            divStack1.setAttribute(`style`, `border: thin solid lightgrey`)
-            divStack2.setAttribute(`style`, `border: thin solid lightgrey`)
-            divStack3.setAttribute(`style`, `border: thin solid lightgrey`)
-            // count the number of moves
-            thisMoves++
-            document.querySelector(`.thisMoves`).innerHTML = `Moves: <br>${thisMoves}`
-            //update the game board
-            updateGameBoard()
-        // otherwise don't allow move
-        } else {
-            document.querySelector(`header`).innerText = 'You cannot choose a stack that has a smaller disk on top. '
-        }
-    })
-    const divStack3 = document.querySelector(`div #stack3`)
-    divStack3.addEventListener(`click`, () => {
-        // don't allow an empty stack be selected if no disk has been choosen yet
-        if (stack3.length === 0 && diskInPlay === ``) {            
-            document.querySelector(`header`).innerText = `You cannot select an empty stack if a disk hasn't been choosen yet`
-        // otherwise, is no disk has been choosen yet, grab the last disk off the stack
-        } else if ( diskInPlay === `` ) {
-            diskInPlay = stack3[stack3.length-1]
-            stack3.pop()
-            divStack3.setAttribute(`style`, `border: solid red`)
-            document.querySelector(`header`).innerText = `Select a target stack to put the top disk`
-        // otherwise if disk choosen is smaller than the last disk on the target stack
-        // or no disks yet exist on the stack,
-        // place the disk on the stack
-        } else if (diskInPlay < stack3[stack3.length-1] || stack3.length===0) {
-            stack3.push(diskInPlay)
-            diskInPlay=``
-            divStack1.setAttribute(`style`, `border: thin solid lightgrey`)
-            divStack2.setAttribute(`style`, `border: thin solid lightgrey`)
-            divStack3.setAttribute(`style`, `border: thin solid lightgrey`)
-            // count the number of moves
-            thisMoves++
-            document.querySelector(`.thisMoves`).innerHTML = `Moves: <br>${thisMoves}`
-            //update the game board
-            updateGameBoard()
-        // otherwise don't allow move
-        } else {
-            document.querySelector(`header`).innerText = 'You cannot choose a stack that has a smaller disk on top. '
-        }
-    })
-    //*/    //    END OF SECTION TO BE REFECTORED ^^^^   
 }
+/*
+    EXECUTION
+*/
+startNewGame()
+const resetButton = document.querySelector(`#resetButton`)
+resetButton.addEventListener (`click`, ()=> {
+    startNewGame()
+})
