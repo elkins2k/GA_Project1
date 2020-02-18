@@ -3,15 +3,14 @@ body {
     align-items: center;
     background: black;
     color: white;
+    font-size: larger;
 }
 
 header {
     width: 100vw;
     height: 10vh;
-    border: solid darkgrey;
     display: table-cell;
     vertical-align: middle;
-    font-size: larger;
 }
 
 .playArea {
@@ -25,7 +24,9 @@ header {
 .stack {
     margin: 10px;
     border: thin solid lightgrey;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 #stack1 {
@@ -43,8 +44,9 @@ header {
 .disk {
     height: 10%;
     margin: 0 auto;
-    border: thin solid darkgrey;
+    border: thin solid black;
     border-radius: 17.5%;
+    margin-bottom: 5px;
 }
 
 #disk1 {
@@ -82,11 +84,31 @@ img {
     width: 1fr;
     margin: 0 auto;
 }
+
 footer {
-    width: 100vw;
+    width: 90vw;
     height: 10vh;
     align-content: center;
-    border: solid darkgrey;
-    display: table-cell;
-    vertical-align: middle;
+    display: grid;
+    grid-template: 1 / repeat(4, 1fr);
+    margin: 0 auto;
+}
+
+.thisMoves {
+    grid-column: 1;
+
+}
+
+#resetButton {
+    grid-column: 2;
+    border-radius: 10%;
+    background-color: darkgrey;
+}
+
+.bestMoves {
+    grid-column: 3;
+}
+
+.optimalMoves {
+    grid-column: 4;
 }

@@ -2,11 +2,20 @@ let stack1 = []
 let stack2 = []
 let stack3 = []
 let forTheWin = []
+let thisMoves = 0
+let bestMoves = 0
+let previousGame = 0
 
+startNewGame()
+const resetButton = document.querySelector(`#resetButton`)
+resetButton.addEventListener (`click`, ()=> {
+    startNewGame()
+})
 
-newGame()
-move()
-
+function startNewGame () {
+    newGame()
+    move()
+}
 /*
     function to clear out the children of an element so new information can be placed
 */
@@ -20,6 +29,9 @@ function clearTheElement (element) {
     function to initialize a new game
 */
 function newGame () {
+    // initialize this game iteration moves counter
+    thisMoves = 0
+    document.querySelector(`.thisMoves`).innerHTML = `Moves: <br>${thisMoves}`
     // generate a form for player input in the header
     document.querySelector(`header`).innerText = ``
     clearTheElement (`header`)
@@ -58,13 +70,21 @@ function newGame () {
         createStack3.className = `stack`
         createStack3.setAttribute(`id`,`stack3`)
         document.querySelector(`.playArea`).appendChild(createStack3)
+    forTheWin=[]
     // initialize the first stack based on player input
     document.querySelectorAll(`input`).forEach(radioInput => {
         radioInput.addEventListener('click', () => {
+            // show what the optimal move score is based on game selected (2^n - 1)
+            document.querySelector(`.optimalMoves`).innerHTML = `Optimal: <br>${2**radioInput.value-1}`
+            if (radioInput.value != previousGame) {
+                bestMoves = 0
+                document.querySelector(`.bestMoves`).innerHTML = `Best:<br>${bestMoves}`
+            }
             for ( i=parseInt(radioInput.value); i>0; i-- ) {
                 stack1.push(i)
                 // setup what the winning stack should look like
                 forTheWin.push(i)
+                previousGame = radioInput.value
             }
         return updateGameBoard()
         })        
@@ -102,13 +122,17 @@ function updateGameBoard () {
 */
 function checkForTheWin(){
     // if stack3 matches the winning stack, player wins!
-    //    if (stack3 === forTheWin) { <=why doesn't this work? ****************
-    if (stack3.length === forTheWin.length) {
-        // go out to GIPHY and grab a "champion" GIF for the player
+    if (stack3.toString() === forTheWin.toString()) {
+        //check to see if moves made in this game are better than previous best
+        thisMoves < bestMoves || bestMoves === 0
+            ? bestMoves = thisMoves
+            : bestMoves = bestMoves
+        document.querySelector(`.bestMoves`).innerHTML = `Best:<br>${bestMoves}`
+        // go out to GIPHY and grab a "win" GIF for the player
         const giphyEndPoint = `https://api.giphy.com/v1/gifs/search`
         const apiKey = `?api_key=C521h69tBB5OScRngdsjrWMAnzMfvHh6`
         axios ({
-            url: giphyEndPoint+apiKey+`&tag=&rating=G&q=champion`,
+            url: giphyEndPoint+apiKey+`&tag=&rating=G&q=win`,
             method: `get`
         })
         .then (response => {
@@ -124,7 +148,6 @@ function checkForTheWin(){
         )
     }
 }
-
 /*
     function to track moves made by player
 */
@@ -173,9 +196,12 @@ function move () {
         } else if (diskInPlay < stack1[stack1.length-1] || stack1.length===0) {
             stack1.push(diskInPlay)
             diskInPlay=``
-            divStack1.setAttribute(`style`, `border:revert`)
-            divStack2.setAttribute(`style`, `border:revert`)
-            divStack3.setAttribute(`style`, `border:revert`)
+            divStack1.setAttribute(`style`, `border: thin solid lightgrey`)
+            divStack2.setAttribute(`style`, `border: thin solid lightgrey`)
+            divStack3.setAttribute(`style`, `border: thin solid lightgrey`)
+            // count the number of moves
+            thisMoves++
+            document.querySelector(`.thisMoves`).innerHTML = `Moves: <br>${thisMoves}`
             //update the game board
             updateGameBoard()
         // otherwise don't allow move
@@ -199,9 +225,12 @@ function move () {
         } else if (diskInPlay < stack2[stack2.length-1] || stack2.length===0) {
             stack2.push(diskInPlay)
             diskInPlay=``
-            divStack1.setAttribute(`style`, `border:revert`)
-            divStack2.setAttribute(`style`, `border:revert`)
-            divStack3.setAttribute(`style`, `border:revert`)
+            divStack1.setAttribute(`style`, `border: thin solid lightgrey`)
+            divStack2.setAttribute(`style`, `border: thin solid lightgrey`)
+            divStack3.setAttribute(`style`, `border: thin solid lightgrey`)
+            // count the number of moves
+            thisMoves++
+            document.querySelector(`.thisMoves`).innerHTML = `Moves: <br>${thisMoves}`
             //update the game board
             updateGameBoard()
         // otherwise don't allow move
@@ -225,9 +254,12 @@ function move () {
         } else if (diskInPlay < stack3[stack3.length-1] || stack3.length===0) {
             stack3.push(diskInPlay)
             diskInPlay=``
-            divStack1.setAttribute(`style`, `border:revert`)
-            divStack2.setAttribute(`style`, `border:revert`)
-            divStack3.setAttribute(`style`, `border:revert`)
+            divStack1.setAttribute(`style`, `border: thin solid lightgrey`)
+            divStack2.setAttribute(`style`, `border: thin solid lightgrey`)
+            divStack3.setAttribute(`style`, `border: thin solid lightgrey`)
+            // count the number of moves
+            thisMoves++
+            document.querySelector(`.thisMoves`).innerHTML = `Moves: <br>${thisMoves}`
             //update the game board
             updateGameBoard()
         // otherwise don't allow move
@@ -236,3 +268,5 @@ function move () {
         }
     })
 }
+
+
