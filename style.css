@@ -11,6 +11,7 @@ header {
     height: 10vh;
     display: table-cell;
     vertical-align: middle;
+    color:yellow;
 }
 
 .playArea {
@@ -45,10 +46,13 @@ header {
     height: 10%;
     margin: 0 auto;
     border: thin solid black;
-    border-radius: 17.5%;
+    border-radius: 25px;
     margin-bottom: 5px;
     color: black;
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 #disk1 {
