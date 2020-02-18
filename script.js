@@ -87,20 +87,17 @@ function updateGameBoard () {
     // clear the header to accept new instructions
     clearTheElement(`header`)
     // iterate through each stack
-    for ( currentStack=1; currentStack<=3; currentStack++) {
-        currentStack === 1
-            ? stackNumber = stack1 : currentStack === 2
-                ? stackNumber = stack2 : stackNumber = stack3
-        // clear each stack to prepare for upate
-        clearTheElement(`#stack${currentStack}`)
-        eachStack = document.querySelector(`#stack${currentStack}`)
+    const stacks = {1:stack1, 2:stack2, 3:stack3}
+    for (let stackNumber in stacks) {
+        clearTheElement(`#stack${stackNumber}`)
+        eachStack = document.querySelector(`#stack${stackNumber}`)
         // create the disks for each stack based on their contents
-        for ( i=stackNumber.length; i>0; i-- ) {
+        for ( i=stacks[stackNumber].length; i>0; i-- ) {
             const createDivStack = document.createElement (`div`)    
             createDivStack.className = `disk`
-            createDivStack.setAttribute( `id` , `disk${stackNumber[i-1]}` )
+            createDivStack.setAttribute( `id` , `disk${stacks[stackNumber][i-1]}` )
             eachStack.appendChild (createDivStack)
-            createDivStack.innerHTML = ( `${stackNumber[i-1]}` )
+            createDivStack.innerHTML = ( `${stacks[stackNumber][i-1]}` )
         }
     }
     document.querySelector(`header`).innerText = 'Select the stack from which you want to move the top disk'

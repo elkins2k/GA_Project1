@@ -106,8 +106,9 @@ footer {
     grid-column: 2;
     border-radius: 10%;
     background-color: darkgrey;
-    color: black;
+    color: lightgrey;
     font-weight: bold;
+    font-size: larger;
 }
 
 .bestMoves {
