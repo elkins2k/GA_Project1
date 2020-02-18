@@ -15,7 +15,7 @@ header {
 
 .playArea {
     width: 80vw;
-    height: 75vh;
+    height: 65vh;
     margin: 0 auto;
     display: grid;
     grid-template: 1fr / 1fr 1fr 1fr;
@@ -92,21 +92,24 @@ img {
 
 footer {
     width: 90vw;
-    height: 10vh;
+    height: 20vh;
     align-content: center;
     display: grid;
-    grid-template: 1fr / repeat(4, 1fr);
+    grid-template: 2fr / repeat(3, 1fr);
     margin: 0 auto;
 }
 
 .thisMoves {
+    grid-row: 2;
     grid-column: 1;
 
 }
 
 #resetButton {
-    grid-column: 2;
-    border-radius: 10%;
+    height: 10vh;
+    grid-row: 1;
+    grid-column: 1 / span 3;
+    border-radius: 25px;
     background-color: darkgrey;
     color: lightgrey;
     font-weight: bold;
@@ -114,9 +117,11 @@ footer {
 }
 
 .bestMoves {
-    grid-column: 3;
+    grid-row: 2;
+    grid-column: 2;
 }
 
 .optimalMoves {
-    grid-column: 4;
+    grid-row: 2;
+    grid-column: 3;
 }

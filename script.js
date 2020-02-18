@@ -29,7 +29,7 @@ function newGame () {
     thisMoves = 0
     document.querySelector(`.thisMoves`).innerHTML = `Moves: <br>${thisMoves}`
     // generate a form for player input in the header
-    document.querySelector(`header`).innerText = ``
+    document.querySelector(`header`).innerHTML = `Tower of Hanoi: objective is to move all disks to the far right`
     clearTheElement (`header`)
     const createForm = document.createElement (`form`)
     createForm.className = `inputForm`
