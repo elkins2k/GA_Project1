@@ -3,8 +3,7 @@ body {
     align-items: center;
     background: black;
     color: white;
-    font-size: larger;
-    
+    font-size: larger;    
 }
 
 header {
@@ -21,7 +20,7 @@ header {
     margin: 0 auto;
     display: grid;
     grid-template: 1fr / 1fr 1fr 1fr;
-    background-image: url('towerOfHanoiBase.png');
+    background-image: url('../img/towerOfHanoiBase.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
@@ -110,7 +109,6 @@ footer {
 .thisMoves {
     grid-row: 2;
     grid-column: 1;
-
 }
 
 #resetButton {
