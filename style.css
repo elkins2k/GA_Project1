@@ -4,6 +4,7 @@ body {
     background: black;
     color: white;
     font-size: larger;
+    
 }
 
 header {
@@ -20,6 +21,9 @@ header {
     margin: 0 auto;
     display: grid;
     grid-template: 1fr / 1fr 1fr 1fr;
+    background-image: url('towerOfHanoiBase.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 .stack {
@@ -28,6 +32,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    height:57vh;
 }
 
 #stack1 {
@@ -47,7 +52,7 @@ header {
     margin: 0 auto;
     border: thin solid black;
     border-radius: 25px;
-    margin-bottom: 5px;
+    margin-bottom: 1px;
     color: black;
     font-weight: bold;
     display: flex;
