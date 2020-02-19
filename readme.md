@@ -12,7 +12,6 @@ Winning the game grabs a random "winner" GIF from GIPHY API
 
 ## MVP
 ### BRONZE
-```
 game logic
 - initialize game area
     -all disks are stacked biggest to smallest, bottom to top, on the left
@@ -20,9 +19,9 @@ game logic
     - user choses a source stack to move top disk from, then selects the target stack to move to
     - allow move if disk being moved is smaller than top disk on the target stack
 - game ends when all disks are stacked on the far-right stack
-```
+
 ### SILVER
-```
+
  - count number of moves
  - compare count to optimal solution (2^# - 1)
     - 3 disks = 7 moves
@@ -34,16 +33,16 @@ game logic
  - track player "best score"
  - if player matches optimal, congratulate them and suggest they "advance by adding a disk" or allow them to try different number
  - if player chooses a different number of disks (up or down) - reset best score
- ```
+
 ### GOLD
-```
- - add graphics for stack and disks (DONE ...ish - added a background image for the stacks)
- - eliminate buttons and allow player to "pick" a disk and pick a stack (DONE)
- - animate move (DONE)
+
+ - add graphics for stack and disks (**DONE** ...ish - added a background image for the stacks)
+ - eliminate buttons and allow player to "pick" a disk and pick a stack (**DONE**)
+ - animate move (**DONE**)
  - track best score for each series (3 disks, 4 disks, etc.)
  - allow user to display thier best scores anytime and return to game
  - push their best scores to Twitter or Facebook via API????
- ```
+
 ## Gameboard drafts
 ```
 |================================|
@@ -86,19 +85,21 @@ game logic
 |================================|
 ```
 ## Technologies
- - using a lot of DOM manipulation to dynamically create the game board look 
+ - Using a lot of DOM manipulation to dynamically create the game board look 
     and feel as well as the user prompts in the header area and game tracking 
     in the footer. This required creating a standalone function to clear DOM 
     elements so new/updates coudl be created without stacking the elements on 
     top of each other.
- - played with axios and the GIPHY API to pull a random GIF once the player
+ - Played with axios and the GIPHY API to pull a random GIF once the player
     wins the game. BTW: most of the GIFS coming back are lame, so looking for 
     a new key word to search in GIFY.
- - discovered a new (to me) way to cycle through a list of arrays using 
+ - Discovered a new (to me) way to cycle through a list of arrays using 
     for...in. This allowed me to refactor a LOT of code, especially the "move" 
     function that was basically triple in size - a set of code for each stack -
     and made updates to this section tedious because I had to track down each 
     line for each stack and make the same update
+ - It was always important to me that the game work on mobile devices, so leveraging the viewer width/height (vw/vh) units in my styling was critical
+ - got to use some animation to improve the UX **_thanks to Marc_** for pointing me to https://github.com/daneden/animate.css
 
 ## Approach
  - I first started by brainstorming and jotting down my thoughts in this readme
@@ -111,13 +112,14 @@ game logic
     able to progress VERY rapidly with the approach and had base MVP done in 
     1.5 days.
  - From here, it has been a matter of tweaks and enhancements along the way!
+ 
 
 ## Roadblocks overcome
  - getting the disk DIVs to align to the bottom of the stack DIVs!! I spent an 
     entire weekend battling this issue. Since it was a holiday weekend, I had
     to wait an extra day to bounce my problem off our scrum-master and others
-    in my group. A big SHOUT-OUT to Seamus for steering me in the right 
-    direction finally!
+    in my group. A **_big shout-out to Seamus_** for steering me in the right 
+    direction and finally restoring my sanity!
  - as I stated earlier, rafactoring my code was a big deal because I had code 
     in triplicate - one set of code for each stack. I was able to finally get
     around this and refactor my code using a for...in loop using 

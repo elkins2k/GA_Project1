@@ -97,7 +97,7 @@ function updateGameBoard (diskInPlay) {
         for ( i=stacks[stackNumber].length; i>0; i-- ) {
             const createDivStack = document.createElement (`div`)
             diskInPlay===stacks[stackNumber][i-1]
-             ? createDivStack.className = `disk slideInDown animated`
+             ? createDivStack.className = `disk bounceInDown animated`
              : createDivStack.className = `disk`
             createDivStack.setAttribute( `id` , `disk${stacks[stackNumber][i-1]}` )
             eachStack.appendChild (createDivStack)
