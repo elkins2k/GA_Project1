@@ -27,7 +27,7 @@ header {
 
 .stack {
     margin: 10px;
-    border: thin solid lightgrey;
+    /*border: thin solid lightgrey;*/
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

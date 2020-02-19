@@ -162,7 +162,7 @@ function move () {
                 diskInPlay=``
                 // remove the red outline
                 document.querySelectorAll(`div .stack`).forEach (stack => {
-                    stack.setAttribute(`style`, `border: thin solid lightgrey`)
+                    stack.setAttribute(`style`, `border: none`)
                 })
                 // count the number of moves
                 thisMoves++
