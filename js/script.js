@@ -5,6 +5,7 @@ let forTheWin = []
 let thisMoves = 0
 let bestMoves = 0
 let previousGame = 0
+let optimalMoves = 0
 /*
     function to initiate each new game
 */
@@ -65,7 +66,8 @@ function newGame () {
     document.querySelectorAll(`input`).forEach(radioInput => {
         radioInput.addEventListener('click', () => {
             // show what the optimal move score is based on game selected (2^n - 1)
-            document.querySelector(`.optimalMoves`).innerHTML = `Optimal: <br>${2**radioInput.value-1}`
+            optimalMoves = 2**radioInput.value-1
+            document.querySelector(`.optimalMoves`).innerHTML = `Optimal: <br>${optimalMoves}`
             if (radioInput.value != previousGame) {
                 bestMoves = 0
                 document.querySelector(`.bestMoves`).innerHTML = `Best:<br>${bestMoves}`
@@ -83,7 +85,7 @@ function newGame () {
 /*
     function to update the game board to visually reflect the game pieces
 */
-function updateGameBoard () {
+function updateGameBoard (diskInPlay) {
     // clear the header to accept new instructions
     clearTheElement(`header`)
     // iterate through each stack
@@ -93,8 +95,10 @@ function updateGameBoard () {
         eachStack = document.querySelector(`#stack${stackNumber}`)
         // create the disks for each stack based on their contents
         for ( i=stacks[stackNumber].length; i>0; i-- ) {
-            const createDivStack = document.createElement (`div`)    
-            createDivStack.className = `disk`
+            const createDivStack = document.createElement (`div`)
+            diskInPlay===stacks[stackNumber][i-1]
+             ? createDivStack.className = `disk slideInDown animated`
+             : createDivStack.className = `disk`
             createDivStack.setAttribute( `id` , `disk${stacks[stackNumber][i-1]}` )
             eachStack.appendChild (createDivStack)
             createDivStack.innerHTML = ( `${stacks[stackNumber][i-1]}` )
@@ -129,7 +133,9 @@ function checkForTheWin(){
             clearTheElement (`.playArea`)
             document.querySelector(`.playArea`).appendChild(createImg)
             // change the header information to let player know what to do next
-            document.querySelector(`header`).innerText = 'You won! Select the RESET button to start a new game.'
+            thisMoves === optimalMoves
+                ? document.querySelector(`header`).innerHTML = `You won! Maybe try a harder one next time.<br>Select the RESET button to start a new game.`
+                : document.querySelector(`header`).innerHTML = `You won! You were ${thisMoves - optimalMoves} away from a perfect score. <br>Select the RESET button to start a new game.`
         })
         .catch(error => console.log(error)
         )
@@ -159,7 +165,6 @@ function move () {
             // place the disk on the stack
             } else if (diskInPlay < stacks[stackNumber][stacks[stackNumber].length-1] || stacks[stackNumber].length===0) {
                 stacks[stackNumber].push(diskInPlay)
-                diskInPlay=``
                 // remove the red outline
                 document.querySelectorAll(`div .stack`).forEach (stack => {
                     stack.setAttribute(`style`, `border: none`)
@@ -168,7 +173,8 @@ function move () {
                 thisMoves++
                 document.querySelector(`.thisMoves`).innerHTML = `Moves: <br>${thisMoves}`
                 //update the game board
-                updateGameBoard()
+                updateGameBoard(diskInPlay)
+                diskInPlay=``
             // otherwise don't allow move
             } else {
                 document.querySelector(`header`).innerText = 'You cannot choose a stack that has a smaller disk on top. '

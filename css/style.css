@@ -25,9 +25,16 @@ header {
     background-size: 100% 100%;
 }
 
+img {
+    width: auto;
+    height: 50vh;
+    align-self: center;
+    justify-self: center;
+    grid-column: span 3;
+}
+
 .stack {
     margin: 10px;
-    /*border: thin solid lightgrey;*/
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -56,7 +63,11 @@ header {
     font-weight: bold;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-around;   
+}
+
+.animated {
+    animation-duration: 1s;
 }
 
 #disk1 {
@@ -87,14 +98,6 @@ header {
 #disk6 {
     width:90%;
     background: purple;
-}
-
-img {
-    width: 70vw;
-    height: auto;
-    align-self: center;
-    justify-self: center;
-    grid-column: span 3;
 }
 
 footer {
