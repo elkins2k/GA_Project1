@@ -14,7 +14,7 @@ Winning the game grabs a random "winner" GIF from GIPHY API
 ### BRONZE
 ```
 game logic
-- initalize game area
+- initialize game area
     -all disks are stacked biggest to smallest, bottom to top, on the left
 - moving
     - user choses a source stack to move top disk from, then selects the target stack to move to
@@ -37,12 +37,12 @@ game logic
  ```
 ### GOLD
 ```
- - add graphics for stack and disks (DONE...ish - added a background image for the stacks)
+ - add graphics for stack and disks (DONE ...ish - added a background image for the stacks)
  - eliminate buttons and allow player to "pick" a disk and pick a stack (DONE)
  - animate move (DONE)
- - track best score for each series (3 disks, 4 disks, etc)
+ - track best score for each series (3 disks, 4 disks, etc.)
  - allow user to display thier best scores anytime and return to game
- - push thier best scores to twitter or facebook via API????
+ - push their best scores to Twitter or Facebook via API????
  ```
 ## Gameboard drafts
 ```
@@ -94,20 +94,20 @@ game logic
  - played with axios and the GIPHY API to pull a random GIF once the player
     wins the game. BTW: most of the GIFS coming back are lame, so looking for 
     a new key word to search in GIFY.
- - discovered a new (to me) way to cycle through a list of arrays using for..in.
-    This allowed me to refactor a LOT of code, especially the "move" function 
-    that was basically triple in size - a set of code for each stack - and made
-    updates to this section tedious because I had to track down each line for 
-    each stack and make the same update
+ - discovered a new (to me) way to cycle through a list of arrays using 
+    for...in. This allowed me to refactor a LOT of code, especially the "move" 
+    function that was basically triple in size - a set of code for each stack -
+    and made updates to this section tedious because I had to track down each 
+    line for each stack and make the same update
 
 ## Approach
  - I first started by brainstorming and jotting down my thoughts in this readme
     on how the game should look, the logic, and features. Just getting the 
     thoughts and ideas down helped me organize when I transitioned to 
-    psudeo-code
- - I then started writing the psudeo-code in the JS file, jotting down the 
+    pseudo-code
+ - I then started writing the pseudo-code in the JS file, jotting down the 
     logic, variables I would need, etc. From there, I left the essence of my 
-    psudeo-code as inline documentation and wrote out the actual JS code. I was
+    pseudo-code as inline documentation and wrote out the actual JS code. I was
     able to progress VERY rapidly with the approach and had base MVP done in 
     1.5 days.
  - From here, it has been a matter of tweaks and enhancements along the way!
@@ -116,7 +116,7 @@ game logic
  - getting the disk DIVs to align to the bottom of the stack DIVs!! I spent an 
     entire weekend battling this issue. Since it was a holiday weekend, I had
     to wait an extra day to bounce my problem off our scrum-master and others
-    in my group. A big shoutout to Seamus for steering me in the right 
+    in my group. A big SHOUT-OUT to Seamus for steering me in the right 
     direction finally!
  - as I stated earlier, rafactoring my code was a big deal because I had code 
     in triplicate - one set of code for each stack. I was able to finally get
@@ -124,7 +124,7 @@ game logic
     {1:stack1, 2:stack2, 3:stack3} as my constant. This revelation eliminated 
     over 60 lines of code for one function alone!
  - scope!! needing variables in other functions or reusing variables still in 
-    scope was a killer. Backtracking through the code to find out why a vlue 
+    scope was a killer. Backtracking through the code to find out why a value 
     had disappeared or had a value I wasn't expecting took some time. I'm being
     more intentional naming my vars - especially in for loops - to avoid this 
     issue and passing variables needed in other functions, or simply 
