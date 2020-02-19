@@ -6,7 +6,7 @@ let thisMoves = 0
 let bestMoves = 0
 let previousGame = 0
 let optimalMoves = 0
-let allBestMoves = [0,0,0,0]
+let allBestMoves=[]
 /*
     function to initiate each new game
 */
@@ -121,6 +121,7 @@ function checkForTheWin(){
         }
         if (bestMoves < allBestMoves[forTheWin[0]-3] || allBestMoves[forTheWin[0]-3] === 0) {
             allBestMoves.splice(forTheWin[0]-3, 1, bestMoves)
+            localStorage.setItem(`allBestMoves${forTheWin[0]-3}`,bestMoves)
         }
         document.querySelector(`.bestMoves`).innerHTML = `Best:<br>${bestMoves}`
         // go out to GIPHY and grab a "win" GIF for the player
@@ -187,6 +188,18 @@ function move () {
     }
 }
 /*
+    Get local storage of accomplishments, if they exist
+*/
+if (localStorage.getItem(`allBestMoves0`) === null) {
+    allBestMoves = [0,0,0,0]
+} else {
+    for (i=0; i<=3; i++) {
+        localStorage.getItem(`allBestMoves${i}`) === null
+            ? allBestMoves.push(0)
+            : allBestMoves.push(parseInt(localStorage.getItem(`allBestMoves${i}`)))
+    }
+}
+/*
     Show player's accomplishments this turn
 */
 const accomplishments = document.querySelector(`#accomplishments`)
@@ -200,6 +213,7 @@ accomplishments.addEventListener (`click`, () => {
 /*
     EXECUTION
 */
+
 startNewGame()
 const resetButton = document.querySelector(`#resetButton`)
 resetButton.addEventListener (`click`, () => {

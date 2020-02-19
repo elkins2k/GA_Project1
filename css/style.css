@@ -39,7 +39,7 @@ header {
 
 img {
     width: auto;
-    height: 50vh;
+    height: 60vh;
     align-self: center;
     justify-self: center;
     grid-column: span 3;
@@ -80,6 +80,7 @@ img {
 
 .animated {
     animation-duration: 1s;
+    animation-delay: 0ms;
 }
 
 #disk1 {
