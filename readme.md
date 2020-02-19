@@ -39,8 +39,8 @@ game logic
  - add graphics for stack and disks (**DONE** ...ish - added a background image for the stacks)
  - eliminate buttons and allow player to "pick" a disk and pick a stack (**DONE**)
  - animate move (**DONE**)
- - track best score for each series (3 disks, 4 disks, etc.)
- - allow user to display thier best scores anytime and return to game
+ - track best score for each series (3 disks, 4 disks, etc.) (**DONE**)
+ - allow user to display thier best scores anytime and return to game (**DONE**)
  - push their best scores to Twitter or Facebook via API????
 
 ## Gameboard drafts
@@ -115,17 +115,17 @@ game logic
  
 
 ## Roadblocks overcome
- - getting the disk DIVs to align to the bottom of the stack DIVs!! I spent an 
+ - Getting the disk DIVs to align to the bottom of the stack DIVs!! I spent an 
     entire weekend battling this issue. Since it was a holiday weekend, I had
     to wait an extra day to bounce my problem off our scrum-master and others
     in my group. A **_big shout-out to Seamus_** for steering me in the right 
     direction and finally restoring my sanity!
- - as I stated earlier, rafactoring my code was a big deal because I had code 
+ - As I stated earlier, rafactoring my code was a big deal because I had code 
     in triplicate - one set of code for each stack. I was able to finally get
     around this and refactor my code using a for...in loop using 
     {1:stack1, 2:stack2, 3:stack3} as my constant. This revelation eliminated 
     over 60 lines of code for one function alone!
- - scope!! needing variables in other functions or reusing variables still in 
+ - SCOPE!! needing variables in other functions or reusing variables still in 
     scope was a killer. Backtracking through the code to find out why a value 
     had disappeared or had a value I wasn't expecting took some time. I'm being
     more intentional naming my vars - especially in for loops - to avoid this 

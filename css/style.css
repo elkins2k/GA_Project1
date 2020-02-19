@@ -6,9 +6,21 @@ body {
     font-size: larger;    
 }
 
+.bigHeader {
+    display: grid;
+    grid-template: 10vh / 90vw 10vw;
+}
+
+#accomplishments {
+    grid-column: 2;
+    background-size: cover;
+    height: 50px;
+}
+
 header {
-    width: 100vw;
-    height: 10vh;
+    grid-column: 1;
+    /*width: 100vw;
+    height: 10vh;*/
     display: table-cell;
     vertical-align: middle;
     color:yellow;

@@ -6,6 +6,7 @@ let thisMoves = 0
 let bestMoves = 0
 let previousGame = 0
 let optimalMoves = 0
+let allBestMoves = [0,0,0,0]
 /*
     function to initiate each new game
 */
@@ -69,7 +70,7 @@ function newGame () {
             optimalMoves = 2**radioInput.value-1
             document.querySelector(`.optimalMoves`).innerHTML = `Optimal: <br>${optimalMoves}`
             if (radioInput.value != previousGame) {
-                bestMoves = 0
+                bestMoves = allBestMoves[radioInput.value-3]
                 document.querySelector(`.bestMoves`).innerHTML = `Best:<br>${bestMoves}`
             }
             for ( i=parseInt(radioInput.value); i>0; i-- ) {
@@ -115,9 +116,12 @@ function checkForTheWin(){
     // if stack3 matches the winning stack, player wins!
     if (stack3.toString() === forTheWin.toString()) {
         //check to see if moves made in this game are better than previous best
-        thisMoves < bestMoves || bestMoves === 0
-            ? bestMoves = thisMoves
-            : bestMoves = bestMoves
+        if (thisMoves < bestMoves || bestMoves === 0 ) {
+            bestMoves = thisMoves
+        }
+        if (bestMoves < allBestMoves[forTheWin[0]-3] || allBestMoves[forTheWin[0]-3] === 0) {
+            allBestMoves.splice(forTheWin[0]-3, 1, bestMoves)
+        }
         document.querySelector(`.bestMoves`).innerHTML = `Best:<br>${bestMoves}`
         // go out to GIPHY and grab a "win" GIF for the player
         const giphyEndPoint = `https://api.giphy.com/v1/gifs/search`
@@ -183,10 +187,21 @@ function move () {
     }
 }
 /*
+    Show player's accomplishments this turn
+*/
+const accomplishments = document.querySelector(`#accomplishments`)
+accomplishments.addEventListener (`click`, () => {
+    alert (`Your best scores today:
+        \n3 disks : ${allBestMoves[0]} moves
+        \n4 disks : ${allBestMoves[1]} moves
+        \n5 disks : ${allBestMoves[2]} moves
+        \n6 disks : ${allBestMoves[3]} moves`)
+})
+/*
     EXECUTION
 */
 startNewGame()
 const resetButton = document.querySelector(`#resetButton`)
-resetButton.addEventListener (`click`, ()=> {
+resetButton.addEventListener (`click`, () => {
     startNewGame()
 })
