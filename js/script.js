@@ -35,7 +35,7 @@ function newGame () {
     clearTheElement (`header`)
     const createForm = document.createElement (`form`)
     createForm.className = `inputForm`
-    createForm.innerHTML = (`Please select a game to play: `)
+    createForm.innerHTML = (`Please select a game to play: <br>`)
     const headerElements = document.querySelectorAll (`header`)
     headerElements[0].appendChild(createForm)
     // only allow player to choose 3 - 6 disks per game

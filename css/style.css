@@ -8,7 +8,7 @@ body {
 
 .bigHeader {
     display: grid;
-    grid-template: 10vh / 90vw 10vw;
+    grid-template: 15vh / 90vw 10vw;
 }
 
 #accomplishments {
@@ -28,7 +28,7 @@ header {
 
 .playArea {
     width: 80vw;
-    height: 65vh;
+    height: 60vh;
     margin: 0 auto;
     display: grid;
     grid-template: 1fr / 1fr 1fr 1fr;
