@@ -112,6 +112,10 @@ img {
     width:90%;
     background: purple;
 }
+#disk7 {
+    width:100%;
+    background: yellow;
+}
 
 footer {
     width: 90vw;

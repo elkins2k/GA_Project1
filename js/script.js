@@ -38,8 +38,8 @@ function newGame () {
     createForm.innerHTML = (`Please select a game to play: <br>`)
     const headerElements = document.querySelectorAll (`header`)
     headerElements[0].appendChild(createForm)
-    // only allow player to choose 3 - 6 disks per game
-    for ( i=3; i<=6; i++ ) {
+    // only allow player to choose 3 - 7 disks per game
+    for ( i=3; i<=7; i++ ) {
         const createInput = document.createElement (`input`)    
         createInput.setAttribute( `type` , `radio` )
         createInput.setAttribute( `id` , `${i}` )
@@ -191,9 +191,9 @@ function move () {
     Get local storage of accomplishments, if they exist
 */
 if (localStorage.getItem(`allBestMoves0`) === null) {
-    allBestMoves = [0,0,0,0]
+    allBestMoves = [0,0,0,0,0]
 } else {
-    for (i=0; i<=3; i++) {
+    for (i=0; i<=4; i++) {
         localStorage.getItem(`allBestMoves${i}`) === null
             ? allBestMoves.push(0)
             : allBestMoves.push(parseInt(localStorage.getItem(`allBestMoves${i}`)))
@@ -208,12 +208,12 @@ accomplishments.addEventListener (`click`, () => {
         \n3 disks : ${allBestMoves[0]} moves
         \n4 disks : ${allBestMoves[1]} moves
         \n5 disks : ${allBestMoves[2]} moves
-        \n6 disks : ${allBestMoves[3]} moves`)
+        \n6 disks : ${allBestMoves[3]} moves
+        \n7 disks : ${allBestMoves[4]} moves`)
 })
 /*
     EXECUTION
 */
-
 startNewGame()
 const resetButton = document.querySelector(`#resetButton`)
 resetButton.addEventListener (`click`, () => {
