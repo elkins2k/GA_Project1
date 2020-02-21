@@ -6,7 +6,7 @@ Winning the game grabs a random "winner" GIF from GIPHY API
 
 ## game board
 - header area = prompts that inform player what is expected from them next
-- game board = play area with 3 sections/pegs and discs
+- game board = play area with 3 sections/pegs and disks
 - footer area = current moves tracker, best score tracker, optimal score
 - allow player to choose a "series" to play, of 3-7 #s of disks to start game
 
