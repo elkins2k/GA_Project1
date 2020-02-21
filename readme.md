@@ -11,37 +11,44 @@ Winning the game grabs a random "winner" GIF from GIPHY API
 - allow player to choose a "series" to play, of 3-7 #s of disks to start game
 
 ## MVP
-### BRONZE
-game logic
-- initialize game area
-    -all disks are stacked biggest to smallest, bottom to top, on the left
-- moving
-    - user choses a source stack to move top disk from, then selects the target stack to move to
-    - allow move if disk being moved is smaller than top disk on the target stack
-- game ends when all disks are stacked on the far-right stack
+<details>
+    <summary>BRONZE</summary>
+<p>game logic
+        <p><strong>initialize game area</strong>
+            <li>all disks are stacked biggest to smallest, bottom to top, on the left</li>
+        <strong>moving</strong>
+            <li>user choses a source stack to move top disk from, then selects the target stack to move to</li>
+            <li>allow move if disk being moved is smaller than top disk on the target stack</li>
+            <li>game ends when all disks are stacked on the far-right stack</li>
+            <p>
+</details>
 
-### SILVER
+<details>
+    <summary>SILVER</summary>
+<p>count number of moves
+ <p>compare count to optimal solution (2^# - 1)
+    <li>3 disks = 7 moves
+   <li>4 disks = 15 moves
+   <li>5 disks = 31 moves
+   <li>6 disks = 63 moves
+    <li>7 disks = 127 moves
+ <p> if player does not match optimal, suggest player "try again" or allow them to try a different number of disks
+<p> track player "best score"
+ <p> if player matches optimal, congratulate them and suggest they "advance by adding a disk" or allow them to try different number
+<p> if player chooses a different number of disks (up or down) - reset best score
+</details>
 
- - count number of moves
- - compare count to optimal solution (2^# - 1)
-    - 3 disks = 7 moves
-    - 4 disks = 15 moves
-    - 5 disks = 31 moves
-    - 6 disks = 63 moves
-    - 7 disks = 127 moves
- - if player does not match optimal, suggest player "try again" or allow them to try a different number of disks
- - track player "best score"
- - if player matches optimal, congratulate them and suggest they "advance by adding a disk" or allow them to try different number
- - if player chooses a different number of disks (up or down) - reset best score
-
-### GOLD
-
- - add graphics for stack and disks (**DONE** ...ish - added a background image for the stacks)
- - eliminate buttons and allow player to "pick" a disk and pick a stack (**DONE**)
- - animate move (**DONE**)
- - track best score for each series (3 disks, 4 disks, etc.) (**DONE**)
- - allow user to display thier best scores anytime and return to game (**DONE**)
- - push their best scores to Twitter or Facebook via API????
+<details>
+    <summary>GOLD</summary>
+<p>
+<li>add graphics for stack and disks (<strong>**DONE**</strong> ...ish - added a background image for the stacks)
+<li>eliminate buttons and allow player to "pick" a disk and pick a stack (<strong>**DONE**</strong>)
+<li>animate move (<strong>**DONE**</strong>)
+<li>eliminate buttons and allow player to "pick" a disk and pick a stack (<strong>**DONE**</strong>)
+<li>track best score for each series (3 disks, 4 disks, etc.) (<li>eliminate buttons and allow player to "pick" a disk and pick a stack (<strong>**DONE**</strong>)
+<li>allow user to display thier best scores anytime and return to game (<li>eliminate buttons and allow player to "pick" a disk and pick a stack (<strong>**DONE**</strong>)
+<li>push their best scores to Twitter or Facebook via API????
+</details>
 
 ## Gameboard drafts
 ```
@@ -84,6 +91,7 @@ game logic
 |    1         20           15   | 
 |================================|
 ```
+
 ## Technologies
  - Using a lot of DOM manipulation to dynamically create the game board look 
     and feel as well as the user prompts in the header area and game tracking 
